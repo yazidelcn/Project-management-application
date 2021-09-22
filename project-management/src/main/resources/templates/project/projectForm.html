@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:action="@{/projects/saveProject}" th:object="${project}"
+		method="post">
+		<p>
+			Project Name : <input type="text" placeholder="Project Name"
+				th:field="*{name}" />
+		</p>
+		<p>
+			Stage : <select th:field="*{stage}">
+
+				<option th:value="NOT_STARTED">NOT STARTED</option>
+				<option th:value="IN_PROGRESS">IN PROGRESS</option>
+				<option th:value="COMPLETED">COMPLETED</option>
+			</select>
+		</p>
+		<p>
+			Project Description :
+			<textarea placeholder="Poject Description" th:field="*{description}"></textarea>
+		</p>
+		
+		<button type="submit">save project</button>
+	</form>
+</body>
+</html>
