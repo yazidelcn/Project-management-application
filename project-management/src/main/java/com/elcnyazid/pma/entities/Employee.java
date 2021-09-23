@@ -11,13 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "employee")
 public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "employee_id")
 	private Long id;
 	@Column(name = "first_name")
 	private String firstName;
@@ -26,7 +28,7 @@ public class Employee {
 	@Column(unique = true)
 	private String email;
 
-	@ManyToMany(cascade =CascadeType.ALL )
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "PROJECTS_EMPLOYEES", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
 	private List<Project> projects;
 
@@ -86,7 +88,5 @@ public class Employee {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", projects=" + projects + "]";
 	}
-
-	
 
 }
