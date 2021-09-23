@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Employee {
@@ -18,7 +20,11 @@ public class Employee {
 	private String lastName;
 	@Column(unique = true)
 	private String email;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "project_id" )
+	private Project project;
+	
 	public Employee() {
 		super();
 	}
