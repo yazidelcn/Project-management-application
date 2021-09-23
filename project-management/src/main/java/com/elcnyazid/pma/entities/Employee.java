@@ -1,12 +1,17 @@
 package com.elcnyazid.pma.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
 
 @Entity
 public class Employee {
@@ -20,11 +25,11 @@ public class Employee {
 	private String lastName;
 	@Column(unique = true)
 	private String email;
-	
-	@ManyToOne
-	@JoinColumn(name = "project_id" )
-	private Project project;
-	
+
+	@ManyToMany(cascade =CascadeType.ALL )
+	@JoinTable(name = "PROJECTS_EMPLOYEES", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
+	private List<Project> projects;
+
 	public Employee() {
 		super();
 	}
@@ -68,9 +73,20 @@ public class Employee {
 		this.email = email;
 	}
 
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", projects=" + projects + "]";
 	}
+
+	
 
 }

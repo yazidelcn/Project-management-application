@@ -2,11 +2,14 @@ package com.elcnyazid.pma.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Project {
@@ -16,7 +19,8 @@ public class Project {
 	private String stage;
 	private String description;
 	
-	@OneToMany(mappedBy = "project")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "PROJECTS_EMPLOYEES", joinColumns = @JoinColumn(name = "PROJECT_ID"), inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
 	private List<Employee> employees; 
 	
 	
@@ -73,11 +77,24 @@ public class Project {
 	}
 
 
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Project [projectId=" + projectId + ", name=" + name + ", stage=" + stage + ", description="
-				+ description + "]";
+				+ description + ", employees=" + employees + "]";
 	}
+
+
+	
 	
 	
 	
