@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
+<head th:replace="layouts :: head"></head>
 <body>
+	<nav th:replace="layouts :: navbar"></nav>
 	<form th:action="@{/projects/saveProject}" th:object="${project}"
 		method="post">
 		<p>
@@ -23,7 +21,7 @@
 			Project Description :
 			<textarea placeholder="Poject Description" th:field="*{description}"></textarea>
 		</p>
-		
+
 		<button type="submit">save project</button>
 	</form>
 </body>
