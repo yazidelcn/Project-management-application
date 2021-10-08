@@ -2,46 +2,70 @@
 <html xmlns:th="www.thymeleaf.org">
 <head th:replace="layouts :: head"></head>
 <body>
-	
+
 	<nav th:replace="layouts :: navbar"></nav>
-	
-	<h2>List of projects</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Stage</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="p : ${projects}">
-				<td th:text="${p.name}"></td>
-				<td th:text="${p.stage}"></td>
-				<td th:text="${p.description}"></td>
-			</tr>
+	<div class="container">
+		<h3 class="mt-5">Main dashboard</h3>
+		<hr>
+		<h4>List of projects</h4>
+		<div class="row">
+			<div class="col-md-6">
+				<table class="table table-bordered table-striped">
+					<thead class="thead-dark">
+						<tr>
+							<th>Name</th>
+							<th>Stage</th>
+							<!-- <th>Description</th> -->
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="p : ${projects}">
+							<td th:text="${p.name}"></td>
+							<td th:text="${p.stage}"></td>
+							<!-- <td th:text="${p.description}"></td> -->
+						</tr>
 
-		</tbody>
-	</table>
+					</tbody>
+				</table>
 
-	<hr />
-	<h2>List of employees</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>First name</th>
-				<th>Last name</th>
-				<th>Email</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="e : ${employees}">
-				<td th:text="${e.firstName}"></td>
-				<td th:text="${e.lastName}"></td>
-				<td th:text="${e.email}"></td>
-			</tr>
+			</div>
 
-		</tbody>
-	</table>
+			<div class="col-md-4">
+				<canvas id="myPieChart" height="50" width="50"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h4>List of employees</h4>
+				<table class="table table-bordered table-striped">
+					<thead class="thead-dark">
+						<tr>
+							<th>First name</th>
+							<th>Last name</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="e : ${employees}">
+							<td th:text="${e.firstName}"></td>
+							<td th:text="${e.lastName}"></td>
+							<td th:text="${e.email}"></td>
+						</tr>
+
+					</tbody>
+				</table>
+
+
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<script type="text/javascript" th:src=@{/js/myChart.js}></script>
+
 </body>
 </html>
