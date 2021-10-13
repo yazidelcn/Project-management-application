@@ -11,14 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
+
 
 @Entity
-@Table(name = "employee")
 public class Employee {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_generator")
+	@SequenceGenerator(name = "employee_generator", sequenceName = "employee_seq", allocationSize = 1)
 	@Column(name = "employee_id")
 	private Long id;
 	@Column(name = "first_name")
@@ -29,7 +30,7 @@ public class Employee {
 	private String email;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "PROJECTS_EMPLOYEES", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
+	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
 	private List<Project> projects;
 
 	public Employee() {

@@ -27,7 +27,7 @@ public class ProjectManagementApplication {
 	}
 
 
-	@Bean
+/*	@Bean
 	CommandLineRunner runner() {
 		
 		return args -> {
@@ -95,5 +95,5 @@ public class ProjectManagementApplication {
 			
 		};
 		
-	}
+	}*/
 }

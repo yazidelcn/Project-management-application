@@ -12,13 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
+
 
 @Entity
-@Table(name = "project")
 public class Project {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_generator")
+	@SequenceGenerator(name = "project_generator", sequenceName = "project_seq", allocationSize = 1)
 	@Column(name = "project_id")
 	private Long projectId;
 	private String name;
@@ -26,7 +27,7 @@ public class Project {
 	private String description;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "PROJECTS_EMPLOYEES", joinColumns = @JoinColumn(name = "PROJECT_ID"), inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
+	@JoinTable(name = "project_employee", joinColumns = @JoinColumn(name = "PROJECT_ID"), inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
 	private List<Employee> employees =new ArrayList<>();
 
 	public Project() {
