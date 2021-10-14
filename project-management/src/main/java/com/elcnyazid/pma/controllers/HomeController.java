@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.elcnyazid.pma.dto.ChartData;
 import com.elcnyazid.pma.dto.EmployeeProject;
 import com.elcnyazid.pma.entities.Project;
-import com.elcnyazid.pma.repositories.IEmployeeRepository;
-import com.elcnyazid.pma.repositories.IProjectRepository;
+import com.elcnyazid.pma.services.EmployeeService;
+import com.elcnyazid.pma.services.ProjectService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,15 +24,15 @@ public class HomeController {
 	private String version;
 	
 	@Autowired
-	private IProjectRepository projectRepo;
+	private ProjectService projectService;
 	@Autowired
-	private IEmployeeRepository employeeRepo;
+	private EmployeeService employeeService;
 
 	@GetMapping
 	public String getHome(Model model) throws JsonProcessingException {
-		List<Project> projects = projectRepo.findAll();
-		List<EmployeeProject> employeesProjects = employeeRepo.employeeProjects();
-		List<ChartData> stagesData = projectRepo.chartData();
+		List<Project> projects = projectService.getAll();
+		List<EmployeeProject> employeesProjects = employeeService.employeeProjects();
+		List<ChartData> stagesData = projectService.getProjectStatus();
 		ObjectMapper objectMapper = new ObjectMapper();
 		//converting stagesData to JSON
 		String jsonString = objectMapper.writeValueAsString(stagesData);

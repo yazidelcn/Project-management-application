@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.elcnyazid.pma.entities.Employee;
 import com.elcnyazid.pma.entities.Project;
-import com.elcnyazid.pma.repositories.IEmployeeRepository;
-import com.elcnyazid.pma.repositories.IProjectRepository;
+import com.elcnyazid.pma.services.EmployeeService;
+import com.elcnyazid.pma.services.ProjectService;
 
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
 	
 	@Autowired
-	private IProjectRepository projectRepo;
+	private ProjectService projectService;
 	@Autowired
-	private IEmployeeRepository employeeRepo;
+	private EmployeeService employeeService;
 	
 	@GetMapping
 	public String displayProjects(Model model) {
-		List<Project> projects = projectRepo.findAll();
+		List<Project> projects =projectService.getAll();
 		model.addAttribute("projects", projects);
 		return "project/projectDisplay";
 	}
 	
 	@GetMapping("/new")
 	public String projectForm(@ModelAttribute("project") Project project, Model model) {
-		List<Employee> employees = employeeRepo.findAll();
+		List<Employee> employees = employeeService.getAll();
 		model.addAttribute("empList", employees);
 		return "project/projectForm";
 	}
 	
 	@PostMapping("/saveProject")
 	public String processForm(@ModelAttribute("project") Project project) {
-		projectRepo.save(project);
+		projectService.save(project);
 		return "redirect:/projects/";
 	}
 
